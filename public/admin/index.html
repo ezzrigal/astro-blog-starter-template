@@ -1,16 +1,15 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="robots" content="noindex" />
-    <title>Content Manager</title>
-    <!-- Tell Decap CMS exactly where the config lives (required on Cloudflare) -->
-    <link rel="cms-config-url" href="/admin/config.yml" />
-    <!-- Decap CMS v3 — pinned version for stability on Cloudflare -->
-    <script src="https://unpkg.com/decap-cms@3.3.3/dist/decap-cms.js"></script>
-  </head>
-  <body>
-    <!-- Decap CMS mounts here automatically -->
-  </body>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <title>Content Manager</title>
+</head>
+<body>
+  <!-- Explicit mount point — Decap CMS v3 requires this -->
+  <div id="nc-root"></div>
+  <!-- Script at end of body so DOM is ready when CMS initializes -->
+  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+</body>
 </html>

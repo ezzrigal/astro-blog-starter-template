@@ -3,7 +3,7 @@ backend:
   repo: ezzrigal/astro-blog-starter-template
   branch: main
   auth_type: pkce
-  app_id: YOUR_GITHUB_OAUTH_CLIENT_ID   # ← replace with your GitHub OAuth App Client ID
+  app_id: Ov23liMVSXmHeEKrNcOg   # ← replace with your GitHub OAuth App Client ID
 
 media_folder: "public/images/blog"
 public_folder: "/images/blog"
