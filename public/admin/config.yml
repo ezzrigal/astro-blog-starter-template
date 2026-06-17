@@ -1,0 +1,75 @@
+# =============================================================
+# Decap CMS Configuration
+# Docs: https://decapcms.org/docs/configuration-options/
+# =============================================================
+
+backend:
+  name: git-gateway
+  branch: main           # The branch Decap CMS will commit to
+
+# --------------- Media & Files --------------------------------
+media_folder: "public/images/blog"     # Where uploaded images are stored
+public_folder: "/images/blog"          # Public URL prefix for images in posts
+
+# --------------- Editor UI ------------------------------------
+locale: ar               # Arabic UI labels where available
+show_preview_links: true
+
+# =============================================================
+# Collections — must match src/content/blog schema in
+# src/content.config.ts (title, description, pubDate,
+# updatedDate, heroImage)
+# =============================================================
+collections:
+  - name: "blog"
+    label: "المدونة"
+    label_singular: "مقال"
+    folder: "src/content/blog"
+    create: true
+    delete: true
+    slug: "{{slug}}"                   # filename = slugified title
+    extension: "md"
+    format: "frontmatter"
+
+    # ----- Field definitions (match Astro Zod schema) --------
+    fields:
+      - label: "العنوان"
+        name: "title"
+        widget: "string"
+        hint: "عنوان المقال — يظهر في الصفحة وفي بطاقة المدونة"
+
+      - label: "الوصف المختصر"
+        name: "description"
+        widget: "text"
+        hint: "ملخص قصير يظهر في بطاقة المقال ونتائج البحث"
+
+      - label: "تاريخ النشر"
+        name: "pubDate"
+        widget: "datetime"
+        format: "YYYY-MM-DD"
+        date_format: "YYYY-MM-DD"
+        time_format: false
+        hint: "تاريخ نشر المقال (السنة-الشهر-اليوم)"
+
+      - label: "تاريخ آخر تحديث"
+        name: "updatedDate"
+        widget: "datetime"
+        format: "YYYY-MM-DD"
+        date_format: "YYYY-MM-DD"
+        time_format: false
+        required: false
+        hint: "(اختياري) تاريخ آخر تعديل على المقال"
+
+      - label: "صورة المقال الرئيسية"
+        name: "heroImage"
+        widget: "image"
+        required: false
+        hint: "(اختياري) صورة بارزة تظهر في أعلى المقال وبطاقة المدونة"
+        media_library:
+          config:
+            multiple: false
+
+      - label: "محتوى المقال"
+        name: "body"
+        widget: "markdown"
+        hint: "اكتب محتوى المقال هنا بتنسيق Markdown"
