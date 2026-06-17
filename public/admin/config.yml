@@ -1,27 +1,15 @@
-# =============================================================
-# Decap CMS Configuration — Cloudflare Pages + GitHub backend
-# Docs: https://decapcms.org/docs/github-backend/
-# =============================================================
-
 backend:
   name: github
-  repo: ezzrigal/astro-blog-starter-template   # ← REPLACE THIS
+  repo: ezzrigal/astro-blog-starter-template
   branch: main
-  base_url: https://nqlafshriyadh.com
-  auth_endpoint: /oauth/callback
+  auth_type: pkce
+  app_id: YOUR_GITHUB_OAUTH_CLIENT_ID   # ← replace with your GitHub OAuth App Client ID
 
-# --------------- Media & Files --------------------------------
-media_folder: "public/images/blog"      # Where uploaded images are stored (repo path)
-public_folder: "/images/blog"           # Public URL prefix used in post frontmatter
+media_folder: "public/images/blog"
+public_folder: "/images/blog"
 
-# --------------- Editor UI ------------------------------------
 locale: en
-show_preview_links: true
 
-# =============================================================
-# Collections — fields match src/content.config.ts schema:
-# title, description, pubDate, updatedDate, heroImage
-# =============================================================
 collections:
   - name: "blog"
     label: "Blog Posts"
@@ -32,36 +20,10 @@ collections:
     slug: "{{slug}}"
     extension: "md"
     format: "frontmatter"
-
     fields:
-      - label: "Title"
-        name: "title"
-        widget: "string"
-
-      - label: "Description"
-        name: "description"
-        widget: "text"
-
-      - label: "Publish Date"
-        name: "pubDate"
-        widget: "datetime"
-        format: "YYYY-MM-DD"
-        date_format: "YYYY-MM-DD"
-        time_format: false
-
-      - label: "Updated Date"
-        name: "updatedDate"
-        widget: "datetime"
-        format: "YYYY-MM-DD"
-        date_format: "YYYY-MM-DD"
-        time_format: false
-        required: false
-
-      - label: "Hero Image"
-        name: "heroImage"
-        widget: "image"
-        required: false
-
-      - label: "Body"
-        name: "body"
-        widget: "markdown"
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Description", name: "description", widget: "text" }
+      - { label: "Publish Date", name: "pubDate", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false }
+      - { label: "Updated Date", name: "updatedDate", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false, required: false }
+      - { label: "Hero Image", name: "heroImage", widget: "image", required: false }
+      - { label: "Body", name: "body", widget: "markdown" }
