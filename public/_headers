@@ -1,0 +1,6 @@
+# Prevent Cloudflare from caching the CMS config so changes deploy instantly
+/admin/config.yml
+  Cache-Control: no-store, must-revalidate
+
+/admin/index.html
+  Cache-Control: no-store, must-revalidate
