@@ -14,11 +14,12 @@ import { SITE_TITLE } from '../consts';
 
 		<!-- Nav Links Section (RTL: middle/left) -->
 		<div class="nav-menu" id="navMenu">
-			<a href="#hero" class="nav-link active">الرئيسية</a>
-			<a href="#services" class="nav-link">خدماتنا</a>
-			<a href="#calculator" class="nav-link">حاسبة الأسعار</a>
-			<a href="#why-us" class="nav-link">لماذا نحن؟</a>
-			<a href="#faq" class="nav-link">الأسئلة الشائعة</a>
+			<a href="/#hero" class="nav-link active">الرئيسية</a>
+			<a href="/services" class="nav-link">خدماتنا</a>
+			<a href="/#calculator" class="nav-link">حاسبة الأسعار</a>
+			<a href="/#why-us" class="nav-link">لماذا نحن؟</a>
+			<a href="/#faq" class="nav-link">الأسئلة الشائعة</a>
+			<a href="/blog" class="nav-link">المدونة</a>
 		</div>
 
 		<!-- CTA Button (RTL: far left) -->
@@ -61,27 +62,43 @@ import { SITE_TITLE } from '../consts';
 		});
 	}
 
-	// Active link styling on scroll
-	window.addEventListener('scroll', () => {
-		const sections = document.querySelectorAll('section, header');
-		const scrollPos = window.scrollY || document.documentElement.scrollTop;
-		
-		sections.forEach(section => {
-			const top = section.offsetTop - 100;
-			const bottom = top + section.offsetHeight;
+	// Highlight active link based on current URL path
+	const currentPath = window.location.pathname;
+	const links = document.querySelectorAll('.nav-menu a');
+	
+	let matched = false;
+	links.forEach(link => {
+		const href = link.getAttribute('href');
+		if (href && (currentPath === href || currentPath === href + '/')) {
+			links.forEach(a => a.classList.remove('active'));
+			link.classList.add('active');
+			matched = true;
+		}
+	});
+
+	// Active link styling on scroll (only if on homepage)
+	if (currentPath === '/' || currentPath === '') {
+		window.addEventListener('scroll', () => {
+			const sections = document.querySelectorAll('section, header');
+			const scrollPos = window.scrollY || document.documentElement.scrollTop;
 			
-			if (scrollPos >= top && scrollPos < bottom) {
-				const id = section.getAttribute('id');
-				if (id) {
-					const activeLink = document.querySelector(`.nav-menu a[href="#${id}"]`);
-					if (activeLink) {
-						document.querySelectorAll('.nav-menu a').forEach(a => a.classList.remove('active'));
-						activeLink.classList.add('active');
+			sections.forEach(section => {
+				const top = section.offsetTop - 100;
+				const bottom = top + section.offsetHeight;
+				
+				if (scrollPos >= top && scrollPos < bottom) {
+					const id = section.getAttribute('id');
+					if (id) {
+						const activeLink = document.querySelector(`.nav-menu a[href="/#${id}"]`) || document.querySelector(`.nav-menu a[href="#${id}"]`);
+						if (activeLink) {
+							document.querySelectorAll('.nav-menu a').forEach(a => a.classList.remove('active'));
+							activeLink.classList.add('active');
+						}
 					}
 				}
-			}
+			});
 		});
-	});
+	}
 </script>
 
 <style>

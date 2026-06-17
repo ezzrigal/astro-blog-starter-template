@@ -1,0 +1,461 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+---
+
+<!doctype html>
+<html lang="ar" dir="rtl">
+	<head>
+		<BaseHead title={`خدماتنا المتميزة لنقل العفش | ${SITE_TITLE}`} description="تعرف بالتفصيل على خدمات شركة التميز لنقل الأثاث والعفش بالرياض من فك وتركيب وتغليف احترافي ونقل بسيارات دينا مغلقة ومؤمنة." />
+		<style>
+			/* Services Page Custom Styling */
+			.services-hero {
+				padding: 9rem 0 5rem 0;
+				background: linear-gradient(135deg, rgba(15, 118, 110, 0.95) 0%, rgba(15, 23, 42, 0.98) 100%);
+				color: var(--white);
+				text-align: center;
+				position: relative;
+				overflow: hidden;
+			}
+
+			.services-hero::before {
+				content: '';
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				background: radial-gradient(circle at 50% 50%, rgba(217, 119, 6, 0.15), transparent 60%);
+				pointer-events: none;
+			}
+
+			.services-hero h1 {
+				color: var(--white);
+				font-size: 3rem;
+				font-weight: 800;
+				margin-bottom: 1rem;
+			}
+
+			.services-hero h1 span {
+				background: linear-gradient(90deg, #fbbf24, #f59e0b);
+				-webkit-background-clip: text;
+				-webkit-text-fill-color: transparent;
+			}
+
+			.services-hero p {
+				color: #cbd5e1;
+				font-size: 1.2rem;
+				max-width: 700px;
+				margin: 0 auto;
+				line-height: 1.8;
+			}
+
+			/* Detailed Services List */
+			.detailed-services {
+				background-color: var(--bg-light);
+			}
+
+			.service-detail-card {
+				display: grid;
+				grid-template-columns: 1fr 1.5fr;
+				gap: 3rem;
+				background-color: var(--white);
+				border-radius: 24px;
+				padding: 3rem;
+				margin-bottom: 3rem;
+				border: 1px solid var(--border-color);
+				box-shadow: var(--shadow-md);
+				transition: var(--transition-smooth);
+				align-items: center;
+			}
+
+			.service-detail-card:last-child {
+				margin-bottom: 0;
+			}
+
+			.service-detail-card:nth-child(even) {
+				grid-template-columns: 1.5fr 1fr;
+			}
+
+			.service-detail-card:nth-child(even) .service-detail-visual {
+				order: 2;
+			}
+
+			.service-detail-card:hover {
+				transform: translateY(-4px);
+				box-shadow: var(--shadow-xl);
+				border-color: rgba(15, 118, 110, 0.15);
+			}
+
+			.service-detail-visual {
+				background: linear-gradient(135deg, var(--primary-light) 0%, rgba(15, 118, 110, 0.15) 100%);
+				border-radius: 20px;
+				padding: 3rem;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				border: 1px solid rgba(15, 118, 110, 0.1);
+				aspect-ratio: 1;
+				color: var(--primary);
+			}
+
+			.service-detail-visual svg {
+				width: 120px;
+				height: 120px;
+				filter: drop-shadow(0 4px 10px rgba(15, 118, 110, 0.2));
+			}
+
+			.service-detail-content h2 {
+				text-align: right;
+				margin-bottom: 1.5rem;
+				font-size: 1.8rem;
+				color: var(--text-dark);
+			}
+
+			.service-detail-content h2::after {
+				right: 0;
+				left: auto;
+				transform: none;
+				width: 60px;
+			}
+
+			.service-detail-content p {
+				font-size: 1.05rem;
+				line-height: 1.8;
+				margin-bottom: 1.5rem;
+				color: var(--text-muted);
+			}
+
+			.service-features-list {
+				list-style: none;
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				gap: 1rem;
+			}
+
+			@media (max-width: 576px) {
+				.service-features-list {
+					grid-template-columns: 1fr;
+				}
+			}
+
+			.service-feature-item {
+				display: flex;
+				align-items: center;
+				gap: 0.75rem;
+				font-weight: 600;
+				font-size: 0.95rem;
+				color: var(--text-dark);
+			}
+
+			.service-feature-item svg {
+				color: var(--accent);
+				flex-shrink: 0;
+			}
+
+			/* Packaging Materials Section */
+			.materials-section {
+				background-color: var(--white);
+				border-top: 1px solid var(--border-color);
+				border-bottom: 1px solid var(--border-color);
+			}
+
+			.materials-grid {
+				display: grid;
+				grid-template-columns: repeat(3, 1fr);
+				gap: 2rem;
+				margin-top: 3rem;
+			}
+
+			.material-card {
+				background-color: var(--bg-light);
+				border-radius: 16px;
+				padding: 2rem;
+				border: 1px solid var(--border-color);
+				text-align: center;
+				transition: var(--transition-smooth);
+			}
+
+			.material-card:hover {
+				transform: translateY(-5px);
+				box-shadow: var(--shadow-lg);
+				border-color: var(--primary);
+			}
+
+			.material-icon {
+				font-size: 2.5rem;
+				margin-bottom: 1rem;
+				display: inline-block;
+			}
+
+			.material-card h3 {
+				font-size: 1.25rem;
+				margin-bottom: 0.75rem;
+				color: var(--text-dark);
+			}
+
+			.material-card p {
+				font-size: 0.9rem;
+				line-height: 1.7;
+			}
+
+			/* Dedicated CTA Section */
+			.page-cta {
+				background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+				color: var(--white);
+				padding: 5rem 0;
+				text-align: center;
+			}
+
+			.page-cta h2 {
+				color: var(--white);
+				font-size: 2.25rem;
+				margin-bottom: 1rem;
+			}
+
+			.page-cta h2::after {
+				display: none;
+			}
+
+			.page-cta p {
+				color: #ccfbf1;
+				font-size: 1.15rem;
+				max-width: 600px;
+				margin: 0 auto 2.5rem auto;
+			}
+
+			.cta-buttons {
+				display: flex;
+				justify-content: center;
+				gap: 1.5rem;
+				flex-wrap: wrap;
+			}
+
+			/* Responsive styling */
+			@media (max-width: 992px) {
+				.service-detail-card {
+					grid-template-columns: 1fr !important;
+					padding: 2rem;
+					gap: 2rem;
+				}
+
+				.service-detail-card:nth-child(even) .service-detail-visual {
+					order: 0;
+				}
+
+				.service-detail-visual {
+					aspect-ratio: auto;
+					padding: 2rem;
+				}
+
+				.service-detail-visual svg {
+					width: 80px;
+					height: 80px;
+				}
+
+				.materials-grid {
+					grid-template-columns: 1fr;
+					gap: 1.5rem;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<Header />
+
+		<!-- Hero Section -->
+		<section class="services-hero">
+			<div class="container">
+				<h1>خدماتنا المتميزة <span>لنقل الأثاث بالرياض</span></h1>
+				<p>
+					نقدم لك باقة متكاملة من خدمات النقل السكني والتجاري بأعلى درجات الأمان والسرعة. معنا، عملية انتقالك ستكون خالية تماماً من المتاعب بفضل خبرتنا الطويلة وفريقنا المحترف.
+				</p>
+			</div>
+		</section>
+
+		<!-- Detailed Services List -->
+		<section class="detailed-services">
+			<div class="container">
+				
+				<!-- Service 1: Packing & Wrapping -->
+				<div class="service-detail-card">
+					<div class="service-detail-visual">
+						<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+					</div>
+					<div class="service-detail-content">
+						<h2>تغليف الأثاث الاحترافي</h2>
+						<p>
+							التغليف هو أهم خطوة لضمان سلامة الأثاث. نستخدم في شركة التميز أفضل خامات التغليف المستوردة لحماية ممتلكاتك من الخدوش، الأتربة، أو الكسر أثناء مراحل التحميل والتنقل. نولي اهتماماً خاصاً بالقطع الحساسة والزجاجية والثريات.
+						</p>
+						<div class="service-features-list">
+							<div class="service-feature-item">
+								<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+								<span>تغليف بابلز (فقاعات هواء) للزجاج</span>
+							</div>
+							<div class="service-feature-item">
+								<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+								<span>كرتون مقوى مخصص لكل قطعة</span>
+							</div>
+							<div class="service-feature-item">
+								<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+								<span>نايلون سميك للحماية من الرطوبة</span>
+							</div>
+							<div class="service-feature-item">
+								<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+								<span>ترقيم الصناديق لتسهيل التفريغ</span>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Service 2: Assembly & Disassembly -->
+				<div class="service-detail-card">
+					<div class="service-detail-visual">
+						<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+					</div>
+					<div class="service-detail-content">
+						<h2>فك وتركيب الأثاث بأيدي فنيين</h2>
+						<p>
+							لدينا في الشركة نجارون محترفون وفنيون متخصصون في فك وتركيب جميع أنواع غرف النوم (المحلي، التركي، ايكيا، الصيني، والكلاسيك) والمطابخ والأجهزة الكهربائية كالمكيفات السبلت والشاشات والستائر، لضمان إعادتها لحالتها الأصلية تماماً بدون أي عيوب أو أخطاء تركيب.
+						</p>
+						<div class="service-features-list">
+							<div class="service-feature-item">
+								<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+								<span>نجارون متخصصون لغرف النوم</span>
+							</div>
+							<div class="service-feature-item">
+								<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+								<span>فك وتركيب المطابخ بحرفية</span>
+							</div>
+							<div class="service-feature-item">
+								<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+								<span>فنيين مكيفات لفك وتركيب السبلت</span>
+							</div>
+							<div class="service-feature-item">
+								<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+								<span>تركيب الستائر والشاشات فوراً</span>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Service 3: Dina Trucks -->
+				<div class="service-detail-card">
+					<div class="service-detail-visual">
+						<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+					</div>
+					<div class="service-detail-content">
+						<h2>أسطول سيارات دينا نقل عفش مغلقة</h2>
+						<p>
+							نمشي أسطولاً متطوراً ومحدثاً من سيارات دينا نقل العفش المغلقة (المسقوفة) والمخصصة لنقل الأثاث. السيارات مبطنة من الداخل لحماية العفش من الاهتزازات أثناء القيادة، كما أنها تحمي ممتلكاتك تماماً من حرارة الصيف الشديدة والغبار العالق بالأجواء والأمطار المفاجئة في الرياض وخارجها.
+						</p>
+						<div class="service-features-list">
+							<div class="service-feature-item">
+								<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+								<span>سيارات مغلقة بالكامل لحفظ الخصوصية</span>
+							</div>
+							<div class="service-feature-item">
+								<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+								<span>تبطين داخلي كامل ضد الصدمات</span>
+							</div>
+							<div class="service-feature-item">
+								<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+								<span>أحجام سيارات دينا مختلفة تناسب الحمولة</span>
+							</div>
+							<div class="service-feature-item">
+								<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+								<span>سائقون ذوو خبرة بشوارع الرياض</span>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Service 4: Secure Warehouses -->
+				<div class="service-detail-card">
+					<div class="service-detail-visual">
+						<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+					</div>
+					<div class="service-detail-content">
+						<h2>مستودعات تخزين أثاث آمنة</h2>
+						<p>
+							إذا كنت بحاجة لتخزين أثاثك لفترة مؤقتة أثناء السفر أو صيانة المنزل، فإننا نوفر لك مستودعات ومخازن مغلقة ومقسمة في الرياض. المستودعات مجهزة بالكامل وتخضع لأقصى معايير السلامة والأمان لحفظ ممتلكاتك لأي فترة ترغب بها (يومي، شهري، سنوي).
+						</p>
+						<div class="service-features-list">
+							<div class="service-feature-item">
+								<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+								<span>حراسة وكاميرات مراقبة على مدار 24 ساعة</span>
+							</div>
+							<div class="service-feature-item">
+								<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+								<span>رش دوري لمكافحة الحشرات والقوارض</span>
+							</div>
+							<div class="service-feature-item">
+								<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+								<span>نظام عزل كامل ضد الرطوبة والمياه</span>
+							</div>
+							<div class="service-feature-item">
+								<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+								<span>عقود تخزين رسمية مع الضمان</span>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</section>
+
+		<!-- Materials Section -->
+		<section class="materials-section">
+			<div class="container">
+				<h2>مواد التغليف التي نعتمد عليها لضمان الحماية</h2>
+				<p class="text-center" style="max-width: 600px; margin: -1.5rem auto 0 auto;">
+					لحماية مقتنياتك الثمينة، نستخدم تشكيلة من أفضل مواد التغليف المعتمدة محلياً وعالمياً.
+				</p>
+				<div class="materials-grid">
+					<!-- Material 1 -->
+					<div class="material-card">
+						<span class="material-icon">📦</span>
+						<h3>كرتون مقوى عالي الكثافة</h3>
+						<p>نستخدم صناديق كرتونية سميكة جداً وبمقاسات مختلفة لاستيعاب التحف وأدوات المطبخ والكتب والمقتنيات الصغيرة وحمايتها من الضغط والكسر.</p>
+					</div>
+
+					<!-- Material 2 -->
+					<div class="material-card">
+						<span class="material-icon">🫧</span>
+						<h3>رولات البابلز (الفقاعات الهوائية)</h3>
+						<p>مثالية لتغليف الشاشات، الزجاج، المرايا، والتحف القابلة للكسر حيث تعمل كطبقة حماية ماصة للصدمات والاهتزازات أثناء نقل الأثاث.</p>
+					</div>
+
+					<!-- Material 3 -->
+					<div class="material-card">
+						<span class="material-icon">🛡️</span>
+						<h3>الرول النايلون (الاسترتش) واللباد</h3>
+						<p>النايلون السميك نستخدمه لشد التغليف ومنع تسرب الرطوبة والأتربة، بينما اللباد يوضع بين طبقات الخشب السميكة لمنع الاحتكاك والخدوش تماماً.</p>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Call-To-Action Banner -->
+		<section class="page-cta">
+			<div class="container">
+				<h2>احصل على خدمة نقل عفش احترافية اليوم</h2>
+				<p>فريقنا مستعد لتلبية طلباتكم على مدار الساعة داخل وخارج الرياض وبأسعار تناسب ميزانيتكم.</p>
+				<div class="cta-buttons">
+					<a href="tel:+966500000000" class="btn btn-accent">
+						<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+						<span>اتصل بنا الآن</span>
+					</a>
+					<a href="https://wa.me/966500000000" class="btn btn-primary" style="background-color: #25D366;">
+						<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+						<span>راسلنا عبر واتساب</span>
+					</a>
+				</div>
+			</div>
+		</section>
+
+		<Footer />
+	</body>
+</html>

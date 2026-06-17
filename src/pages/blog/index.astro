@@ -12,100 +12,205 @@ const posts = (await getCollection('blog')).sort(
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<BaseHead title={`مدونة التميز لنقل العفش | نصائح وإرشادات نقل الأثاث`} description="تصفح مقالات مدونة التميز لنقل العفش بالرياض للحصول على أفضل النصائح والخطوات العملية لنقل الأثاث بأمان وتجنب التلفيات." />
 		<style>
-			main {
-				width: 960px;
-			}
-			ul {
-				display: flex;
-				flex-wrap: wrap;
-				gap: 2rem;
-				list-style-type: none;
-				margin: 0;
-				padding: 0;
-			}
-			ul li {
-				width: calc(50% - 1rem);
-			}
-			ul li * {
-				text-decoration: none;
-				transition: 0.2s ease;
-			}
-			ul li:first-child {
-				width: 100%;
-				margin-bottom: 1rem;
+			/* Blog hero section */
+			.blog-hero {
+				padding: 9rem 0 4rem 0;
+				background: linear-gradient(135deg, rgba(15, 118, 110, 0.95) 0%, rgba(15, 23, 42, 0.98) 100%);
+				color: var(--white);
 				text-align: center;
 			}
-			ul li:first-child img {
+
+			.blog-hero h1 {
+				color: var(--white);
+				font-size: 3rem;
+				font-weight: 800;
+				margin-bottom: 1rem;
+			}
+
+			.blog-hero h1 span {
+				background: linear-gradient(90deg, #fbbf24, #f59e0b);
+				-webkit-background-clip: text;
+				-webkit-text-fill-color: transparent;
+			}
+
+			.blog-hero p {
+				color: #cbd5e1;
+				font-size: 1.25rem;
+				max-width: 650px;
+				margin: 0 auto;
+			}
+
+			/* Blog Listing */
+			.blog-section {
+				padding: 5rem 0;
+				background-color: var(--bg-light);
+			}
+
+			.blog-grid {
+				display: grid;
+				grid-template-columns: repeat(3, 1fr);
+				gap: 2.5rem;
+			}
+
+			@media (max-width: 992px) {
+				.blog-grid {
+					grid-template-columns: repeat(2, 1fr);
+					gap: 2rem;
+				}
+			}
+
+			@media (max-width: 768px) {
+				.blog-grid {
+					grid-template-columns: 1fr;
+					gap: 1.5rem;
+				}
+			}
+
+			/* Styled Post Card */
+			.post-card {
+				background-color: var(--white);
+				border-radius: 16px;
+				overflow: hidden;
+				border: 1px solid var(--border-color);
+				box-shadow: var(--shadow-md);
+				transition: var(--transition-smooth);
+				display: flex;
+				flex-direction: column;
+				height: 100%;
+			}
+
+			.post-card:hover {
+				transform: translateY(-5px);
+				box-shadow: var(--shadow-xl);
+				border-color: rgba(15, 118, 110, 0.2);
+			}
+
+			.post-image-wrapper {
+				position: relative;
+				overflow: hidden;
+				aspect-ratio: 16 / 9;
 				width: 100%;
+				background-color: var(--bg-light);
 			}
-			ul li:first-child .title {
-				font-size: 2.369rem;
+
+			.post-image {
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+				transition: transform 0.5s ease;
 			}
-			ul li img {
-				margin-bottom: 0.5rem;
-				border-radius: 12px;
+
+			.post-card:hover .post-image {
+				transform: scale(1.05);
 			}
-			ul li a {
-				display: block;
+
+			.post-content {
+				padding: 1.5rem;
+				display: flex;
+				flex-direction: column;
+				flex-grow: 1;
+				text-align: right;
 			}
-			.title {
-				margin: 0;
-				color: rgb(var(--black));
-				line-height: 1;
+
+			.post-date {
+				font-size: 0.85rem;
+				color: var(--text-muted);
+				display: flex;
+				align-items: center;
+				gap: 0.5rem;
+				margin-bottom: 0.75rem;
+				font-weight: 600;
 			}
-			.date {
-				margin: 0;
-				color: rgb(var(--gray));
+
+			.post-title {
+				font-size: 1.25rem;
+				font-weight: 700;
+				color: var(--text-dark);
+				margin-bottom: 0.75rem;
+				line-height: 1.4;
+				transition: var(--transition-smooth);
 			}
-			ul li a:hover h4,
-			ul li a:hover .date {
-				color: rgb(var(--accent));
+
+			.post-card:hover .post-title {
+				color: var(--primary);
 			}
-			ul a:hover img {
-				box-shadow: var(--box-shadow);
+
+			.post-desc {
+				font-size: 0.95rem;
+				color: var(--text-muted);
+				line-height: 1.6;
+				margin-bottom: 1.5rem;
+				flex-grow: 1;
 			}
-			@media (max-width: 720px) {
-				ul {
-					gap: 0.5em;
-				}
-				ul li {
-					width: 100%;
-					text-align: center;
-				}
-				ul li:first-child {
-					margin-bottom: 0;
-				}
-				ul li:first-child .title {
-					font-size: 1.563em;
-				}
+
+			.post-link {
+				color: var(--primary);
+				font-weight: 700;
+				font-size: 0.95rem;
+				display: inline-flex;
+				align-items: center;
+				gap: 0.25rem;
+				margin-top: auto;
+				align-self: flex-start;
+			}
+
+			.post-link svg {
+				transition: transform 0.3s ease;
+			}
+
+			.post-card:hover .post-link svg {
+				transform: translateX(-4px); /* RTL moves it to the left */
 			}
 		</style>
 	</head>
 	<body>
 		<Header />
-		<main>
-			<section>
-				<ul>
+		
+		<!-- Hero Banner -->
+		<section class="blog-hero">
+			<div class="container">
+				<h1>مدونة التميز <span>لنقل الأثاث والعفش</span></h1>
+				<p>أحدث المقالات والإرشادات المهنية لمساعدتك على نقل أثاثك بأمان تام وبدون عناء بالرياض.</p>
+			</div>
+		</section>
+
+		<!-- Main Grid Section -->
+		<section class="blog-section">
+			<div class="container">
+				<div class="blog-grid">
 					{
 						posts.map((post) => (
-							<li>
-								<a href={`/blog/${post.id}/`}>
-									<img width={720} height={360} src={post.data.heroImage} alt="" />
-									<h4 class="title">{post.data.title}</h4>
-									<p class="date">
-										<FormattedDate date={post.data.pubDate} />
-									</p>
+							<article class="post-card">
+								<a href={`/blog/${post.id}/`} style="display: contents;">
+									<div class="post-image-wrapper">
+										{post.data.heroImage && (
+											<img class="post-image" src={post.data.heroImage} alt={post.data.title} />
+										)}
+									</div>
+									<div class="post-content">
+										<div class="post-date">
+											<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+											<FormattedDate date={post.data.pubDate} />
+										</div>
+										<h2 class="post-title">{post.data.title}</h2>
+										<p class="post-desc">{post.data.description}</p>
+										<span class="post-link">
+											<span>اقرأ المقال</span>
+											<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+										</span>
+									</div>
 								</a>
-							</li>
+							</article>
 						))
 					}
-				</ul>
-			</section>
-		</main>
+				</div>
+			</div>
+		</section>
+
 		<Footer />
 	</body>
 </html>
