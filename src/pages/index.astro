@@ -6,45 +6,1098 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<style>
+			/* Page Specific Styles (Scoped) */
+			
+			/* Hero Section */
+			.hero {
+				padding: 9rem 0 6rem 0;
+				background: linear-gradient(135deg, rgba(15, 118, 110, 0.95) 0%, rgba(15, 23, 42, 0.98) 100%), 
+							url('/blog-placeholder-about.jpg') no-repeat center center / cover;
+				color: var(--white);
+				position: relative;
+				overflow: hidden;
+			}
+
+			.hero::before {
+				content: '';
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				background: radial-gradient(circle at 15% 50%, rgba(217, 119, 6, 0.15), transparent 40%);
+				pointer-events: none;
+			}
+
+			.hero-grid {
+				display: grid;
+				grid-template-columns: 1.2fr 1fr;
+				gap: 3rem;
+				align-items: center;
+			}
+
+			@media (max-width: 992px) {
+				.hero {
+					padding: 7rem 0 4rem 0;
+				}
+				.hero-grid {
+					grid-template-columns: 1fr;
+					text-align: center;
+				}
+			}
+
+			.hero-content h1 {
+				color: var(--white);
+				font-size: 3.25rem;
+				font-weight: 800;
+				margin-bottom: 1.5rem;
+				line-height: 1.25;
+			}
+
+			.hero-content h1 span {
+				background: linear-gradient(90deg, #fbbf24, #f59e0b);
+				-webkit-background-clip: text;
+				-webkit-text-fill-color: transparent;
+			}
+
+			.hero-content p {
+				color: #cbd5e1; /* Slate 300 */
+				font-size: 1.15rem;
+				margin-bottom: 2.5rem;
+				max-width: 650px;
+			}
+
+			@media (max-width: 992px) {
+				.hero-content p {
+					margin-left: auto;
+					margin-right: auto;
+				}
+			}
+
+			.hero-badge {
+				display: inline-flex;
+				align-items: center;
+				gap: 0.5rem;
+				background-color: rgba(217, 119, 6, 0.2);
+				border: 1px solid rgba(217, 119, 6, 0.4);
+				color: #fef3c7; /* Amber 100 */
+				padding: 0.4rem 1rem;
+				border-radius: 50px;
+				font-size: 0.9rem;
+				font-weight: 700;
+				margin-bottom: 1.5rem;
+			}
+
+			.hero-actions {
+				display: flex;
+				gap: 1rem;
+				flex-wrap: wrap;
+			}
+
+			@media (max-width: 992px) {
+				.hero-actions {
+					justify-content: center;
+				}
+			}
+
+			.hero-card {
+				background: rgba(255, 255, 255, 0.08);
+				backdrop-filter: blur(16px);
+				-webkit-backdrop-filter: blur(16px);
+				border: 1px solid rgba(255, 255, 255, 0.15);
+				border-radius: 24px;
+				padding: 2.5rem;
+				box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+			}
+
+			.hero-card h3 {
+				color: var(--white);
+				margin-bottom: 1.5rem;
+				font-size: 1.4rem;
+				border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+				padding-bottom: 0.75rem;
+			}
+
+			.feature-bullet {
+				display: flex;
+				align-items: center;
+				gap: 1rem;
+				margin-bottom: 1.25rem;
+			}
+
+			.feature-bullet:last-child {
+				margin-bottom: 0;
+			}
+
+			.bullet-icon {
+				width: 36px;
+				height: 36px;
+				border-radius: 50%;
+				background-color: var(--accent);
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				flex-shrink: 0;
+				color: var(--white);
+			}
+
+			.bullet-text h4 {
+				color: var(--white);
+				font-size: 1rem;
+				margin: 0;
+			}
+
+			.bullet-text p {
+				color: #94a3b8;
+				font-size: 0.85rem;
+				margin: 0;
+			}
+
+			/* Stats Section */
+			.stats-bar {
+				background-color: var(--white);
+				padding: 2.5rem 0;
+				margin-top: -3rem;
+				position: relative;
+				z-index: 10;
+				border-radius: 16px;
+				box-shadow: var(--shadow-lg);
+				border: 1px solid var(--border-color);
+			}
+
+			.stats-grid {
+				display: grid;
+				grid-template-columns: repeat(4, 1fr);
+				gap: 2rem;
+				text-align: center;
+			}
+
+			@media (max-width: 992px) {
+				.stats-grid {
+					grid-template-columns: repeat(2, 1fr);
+					gap: 2rem;
+				}
+			}
+
+			@media (max-width: 576px) {
+				.stats-grid {
+					grid-template-columns: 1fr;
+					gap: 1.5rem;
+				}
+			}
+
+			.stat-item {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+			}
+
+			.stat-num {
+				font-size: 2.5rem;
+				font-weight: 800;
+				color: var(--primary);
+				line-height: 1.1;
+			}
+
+			.stat-label {
+				font-size: 0.95rem;
+				color: var(--text-muted);
+				font-weight: 600;
+				margin-top: 0.5rem;
+			}
+
+			/* Services Section */
+			.services-grid {
+				display: grid;
+				grid-template-columns: repeat(3, 1fr);
+				gap: 2rem;
+				margin-top: 1.5rem;
+			}
+
+			@media (max-width: 992px) {
+				.services-grid {
+					grid-template-columns: repeat(2, 1fr);
+				}
+			}
+
+			@media (max-width: 768px) {
+				.services-grid {
+					grid-template-columns: 1fr;
+				}
+			}
+
+			.service-card {
+				position: relative;
+				overflow: hidden;
+			}
+
+			.service-icon {
+				width: 60px;
+				height: 60px;
+				border-radius: 12px;
+				background-color: var(--primary-light);
+				color: var(--primary);
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				margin-bottom: 1.5rem;
+				transition: var(--transition-smooth);
+			}
+
+			.service-card:hover .service-icon {
+				background-color: var(--primary);
+				color: var(--white);
+				transform: rotate(5deg) scale(1.05);
+			}
+
+			.service-card h3 {
+				margin-bottom: 0.75rem;
+				font-size: 1.3rem;
+			}
+
+			.service-card p {
+				font-size: 0.95rem;
+				line-height: 1.6;
+			}
+
+			/* Calculator Section */
+			.calculator-section {
+				background-color: #f1f5f9;
+				border-top: 1px solid var(--border-color);
+				border-bottom: 1px solid var(--border-color);
+			}
+
+			.calc-container {
+				max-width: 800px;
+				margin: 0 auto;
+			}
+
+			.calc-card {
+				background-color: var(--white);
+				border-radius: 24px;
+				padding: 3rem;
+				box-shadow: var(--shadow-lg);
+				border: 1px solid var(--border-color);
+			}
+
+			@media (max-width: 576px) {
+				.calc-card {
+					padding: 1.5rem;
+				}
+			}
+
+			.calc-group {
+				margin-bottom: 2rem;
+			}
+
+			.calc-label {
+				display: block;
+				font-weight: 700;
+				margin-bottom: 0.75rem;
+				color: var(--text-dark);
+				font-size: 1.05rem;
+			}
+
+			.calc-options {
+				display: grid;
+				grid-template-columns: repeat(3, 1fr);
+				gap: 1rem;
+			}
+
+			@media (max-width: 576px) {
+				.calc-options {
+					grid-template-columns: 1fr;
+					gap: 0.5rem;
+				}
+			}
+
+			.calc-btn-option {
+				background-color: var(--bg-light);
+				border: 2px solid var(--border-color);
+				border-radius: 12px;
+				padding: 1rem;
+				text-align: center;
+				cursor: pointer;
+				font-weight: 600;
+				transition: var(--transition-smooth);
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				gap: 0.25rem;
+			}
+
+			.calc-btn-option:hover {
+				border-color: var(--primary-hover);
+				background-color: var(--primary-light);
+			}
+
+			.calc-btn-option.selected {
+				border-color: var(--primary);
+				background-color: var(--primary-light);
+				color: var(--primary);
+			}
+
+			.calc-btn-option span.sub-text {
+				font-size: 0.8rem;
+				color: var(--text-muted);
+				font-weight: normal;
+			}
+
+			.calc-btn-option.selected span.sub-text {
+				color: var(--primary);
+			}
+
+			.calc-result-box {
+				background: linear-gradient(135deg, var(--primary) 0%, #0d9488 100%);
+				color: var(--white);
+				padding: 2rem;
+				border-radius: 16px;
+				text-align: center;
+				margin-top: 2.5rem;
+				box-shadow: var(--shadow-md);
+			}
+
+			.calc-price {
+				font-size: 2.5rem;
+				font-weight: 800;
+				color: #fef08a; /* Yellow 200 */
+				margin: 0.5rem 0;
+			}
+
+			.calc-disclaimer {
+				font-size: 0.8rem;
+				color: #ccfbf1; /* Teal 100 */
+				margin-top: 0.5rem;
+			}
+
+			.calc-whatsapp-btn {
+				display: inline-flex;
+				align-items: center;
+				justify-content: center;
+				gap: 0.75rem;
+				background-color: #25D366;
+				color: var(--white);
+				font-weight: 700;
+				width: 100%;
+				padding: 1rem;
+				border-radius: 12px;
+				margin-top: 1.5rem;
+				border: none;
+				cursor: pointer;
+				font-size: 1.1rem;
+				box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+				transition: var(--transition-smooth);
+			}
+
+			.calc-whatsapp-btn:hover {
+				transform: translateY(-2px);
+				box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+				background-color: #20ba59;
+			}
+
+			/* How It Works */
+			.steps-grid {
+				display: grid;
+				grid-template-columns: repeat(4, 1fr);
+				gap: 2rem;
+				margin-top: 2rem;
+				position: relative;
+			}
+
+			@media (max-width: 992px) {
+				.steps-grid {
+					grid-template-columns: repeat(2, 1fr);
+				}
+			}
+
+			@media (max-width: 576px) {
+				.steps-grid {
+					grid-template-columns: 1fr;
+				}
+			}
+
+			.step-card {
+				text-align: center;
+				position: relative;
+			}
+
+			.step-num {
+				width: 50px;
+				height: 50px;
+				border-radius: 50%;
+				background-color: var(--accent);
+				color: var(--white);
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-size: 1.25rem;
+				font-weight: 800;
+				margin: 0 auto 1.5rem auto;
+				border: 4px solid var(--accent-light);
+				box-shadow: var(--shadow-sm);
+			}
+
+			.step-card h3 {
+				font-size: 1.2rem;
+				margin-bottom: 0.5rem;
+			}
+
+			.step-card p {
+				font-size: 0.9rem;
+				line-height: 1.6;
+			}
+
+			/* FAQ Section */
+			.faq-container {
+				max-width: 800px;
+				margin: 0 auto;
+				display: flex;
+				flex-direction: column;
+				gap: 1rem;
+			}
+
+			.faq-item {
+				background-color: var(--white);
+				border: 1px solid var(--border-color);
+				border-radius: 12px;
+				overflow: hidden;
+				transition: var(--transition-smooth);
+			}
+
+			.faq-trigger {
+				width: 100%;
+				background: none;
+				border: none;
+				padding: 1.25rem 1.5rem;
+				text-align: right;
+				font-size: 1.1rem;
+				font-weight: 700;
+				color: var(--text-dark);
+				cursor: pointer;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				gap: 1rem;
+				transition: var(--transition-smooth);
+			}
+
+			.faq-trigger:hover {
+				background-color: var(--bg-light);
+				color: var(--primary);
+			}
+
+			.faq-icon {
+				transition: transform 0.3s ease;
+				color: var(--primary);
+			}
+
+			.faq-item.active .faq-icon {
+				transform: rotate(180deg);
+			}
+
+			.faq-content {
+				max-height: 0;
+				overflow: hidden;
+				transition: max-height 0.3s ease-out, padding 0.3s ease;
+				padding: 0 1.5rem;
+				background-color: var(--white);
+				border-top: 0px solid var(--border-color);
+			}
+
+			.faq-item.active .faq-content {
+				padding: 1rem 1.5rem 1.5rem 1.5rem;
+				border-top-width: 1px;
+			}
+
+			.faq-content p {
+				font-size: 0.95rem;
+				margin: 0;
+				line-height: 1.7;
+			}
+
+			/* CTA Banner */
+			.cta-banner {
+				background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+				color: var(--white);
+				border-radius: 24px;
+				padding: 4rem 2rem;
+				text-align: center;
+				position: relative;
+				overflow: hidden;
+				box-shadow: var(--shadow-xl);
+			}
+
+			.cta-banner::before {
+				content: '';
+				position: absolute;
+				top: -50%;
+				left: -50%;
+				width: 200%;
+				height: 200%;
+				background: radial-gradient(circle, rgba(217, 119, 6, 0.1) 0%, transparent 50%);
+				pointer-events: none;
+			}
+
+			.cta-banner h2 {
+				color: var(--white);
+				font-size: 2.25rem;
+				margin-bottom: 1rem;
+			}
+
+			.cta-banner h2::after {
+				display: none;
+			}
+
+			.cta-banner p {
+				color: #ccfbf1;
+				font-size: 1.1rem;
+				max-width: 600px;
+				margin: 0 auto 2.5rem auto;
+			}
+
+			.cta-banner-buttons {
+				display: flex;
+				justify-content: center;
+				gap: 1.5rem;
+				flex-wrap: wrap;
+			}
+		</style>
 	</head>
 	<body>
 		<Header />
-		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This
-				template serves as a lightweight, minimally-styled starting point for anyone looking to build
-				a personal website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to <a href="https://docs.astro.build/"
-					>read the docs
-				</a> or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out <a
-					href="https://github.com/Charca/astro-blog-template"
-					>astro-blog-template
-				</a> by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
-		</main>
+		
+		<!-- Hero Section -->
+		<section id="hero" class="hero">
+			<div class="container hero-grid">
+				<!-- Hero Text Content -->
+				<div class="hero-content">
+					<div class="hero-badge">
+						<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="6 2 18 2 18 6 6 6 6 2"/><rect x="3" y="6" width="18" height="16" rx="2"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+						<span>خصم 20% لفترة محدودة على جميع خدمات النقل بالرياض</span>
+					</div>
+					<h1>شركة نقل عفش بالرياض <br><span>أمان، سرعة، واحترافية</span></h1>
+					<p>
+						نوفر لك تجربة نقل أثاث خالية من المتاعب بفضل خدمات الفك والتركيب والتغليف المتكاملة. نلتزم بأعلى معايير السلامة والاحترافية لحماية ممتلكاتك وبأسعار تناسب الجميع.
+					</p>
+					<div class="hero-actions">
+						<a href="tel:+966500000000" class="btn btn-accent">
+							<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+							<span>اتصل بنا الآن</span>
+						</a>
+						<a href="#calculator" class="btn btn-outline" style="border-color: var(--white); color: var(--white);">
+							<span>احسب تكلفة النقل</span>
+						</a>
+					</div>
+				</div>
+
+				<!-- Floating Hero Card -->
+				<div class="hero-card animate-float">
+					<h3>لماذا يثق بنا العملاء؟</h3>
+					
+					<div class="feature-bullet">
+						<div class="bullet-icon">
+							<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+						</div>
+						<div class="bullet-text">
+							<h4>ضمان حقيقي وشامل</h4>
+							<p>نضمن سلامة جميع قطع الأثاث ونتحمل المسؤولية كاملة.</p>
+						</div>
+					</div>
+
+					<div class="feature-bullet">
+						<div class="bullet-icon">
+							<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+						</div>
+						<div class="bullet-text">
+							<h4>نجارين وفنيين متخصصين</h4>
+							<p>فك وتركيب غرف النوم والمطابخ والمكيفات بأقصى دقة.</p>
+						</div>
+					</div>
+
+					<div class="feature-bullet">
+						<div class="bullet-icon">
+							<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+						</div>
+						<div class="bullet-text">
+							<h4>سيارات دينا مغلقة مخصصة</h4>
+							<p>لحماية الأثاث من الغبار، الحرارة والأمطار أثناء التنقل.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Statistics Section -->
+		<div class="container">
+			<div class="stats-bar">
+				<div class="stats-grid">
+					<div class="stat-item">
+						<span class="stat-num">+10</span>
+						<span class="stat-label">سنوات من الخبرة</span>
+					</div>
+					<div class="stat-item">
+						<span class="stat-num">+5,000</span>
+						<span class="stat-label">عملية نقل ناجحة</span>
+					</div>
+					<div class="stat-item">
+						<span class="stat-num">100%</span>
+						<span class="stat-label">نسبة رضا العملاء</span>
+					</div>
+					<div class="stat-item">
+						<span class="stat-num">24/7</span>
+						<span class="stat-label">خدمة عملاء متواصلة</span>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Services Section -->
+		<section id="services">
+			<div class="container">
+				<h2>خدماتنا المتميزة لنقل العفش</h2>
+				<p class="text-center" style="max-width: 600px; margin: -1.5rem auto 3rem auto;">
+					نقدم باقة متكاملة من خدمات نقل وتجهيز الأثاث في الرياض لتوفير الوقت والجهد على عملائنا الكرام.
+				</p>
+				
+				<div class="services-grid">
+					<!-- Service 1 -->
+					<div class="card service-card">
+						<div class="service-icon">
+							<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+						</div>
+						<h3>فك وتركيب الأثاث</h3>
+						<p>
+							نقوم بفك وتركيب جميع أنواع غرف النوم (المحلي والمستورد والمودرن)، المطابخ، الستائر، الشاشات والمكيفات بواسطة نجارين محترفين وفنيين مؤهلين.
+						</p>
+					</div>
+
+					<!-- Service 2 -->
+					<div class="card service-card">
+						<div class="service-icon">
+							<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+						</div>
+						<h3>تغليف الأثاث الاحترافي</h3>
+						<p>
+							نستخدم أفضل مواد التغليف كالمفرقعات الهوائية (البابلز)، النايلون السميك، الكرتون المقوى ذو الجودة العالية، واللباد، لضمان حماية تامة ضد الخدش والكسر.
+						</p>
+					</div>
+
+					<!-- Service 3 -->
+					<div class="card service-card">
+						<div class="service-icon">
+							<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+						</div>
+						<h3>سيارات نقل حديثة (دينا)</h3>
+						<p>
+							نمشي أسطولاً من سيارات دينا نقل العفش المغلقة والمبطنة بالداخل لحماية العفش من الأتربة، الرطوبة، والاهتزاز أثناء الحركة على الطرق.
+						</p>
+					</div>
+
+					<!-- Service 4 -->
+					<div class="card service-card">
+						<div class="service-icon">
+							<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+						</div>
+						<h3>العمالة الفنية المدربة</h3>
+						<p>
+							لدينا طاقم عمالة مدربة على أعلى مستوى لنقل الأحمال الثقيلة والتعامل الذكي مع الزجاج، التحف والأجهزة الحساسة دون تعريضها لأي ضرر.
+						</p>
+					</div>
+
+					<!-- Service 5 -->
+					<div class="card service-card">
+						<div class="service-icon">
+							<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+						</div>
+						<h3>مستودعات تخزين آمنة</h3>
+						<p>
+							نوفر مستودعات مؤمنة، نظيفة ومجهزة بكاميرات مراقبة ووسائل مكافحة الحرائق، لتخزين العفش لفترات قصيرة أو طويلة حسب رغبة العميل.
+						</p>
+					</div>
+
+					<!-- Service 6 -->
+					<div class="card service-card">
+						<div class="service-icon">
+							<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+						</div>
+						<h3>خدمات الفحص والضمان</h3>
+						<p>
+							قبل البدء بالعمل نقوم بعمل جرد دقيق وكتابة تقرير حالة، ونمنح العميل ضماناً شاملاً يغطي أي تلفيات -لا قدر الله- أثناء مراحل النقل.
+						</p>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Interactive Calculator Section -->
+		<section id="calculator" class="calculator-section">
+			<div class="container calc-container">
+				<h2>احسب تكلفة نقل عفشك فورياً</h2>
+				<p class="text-center" style="max-width: 600px; margin: -1.5rem auto 3rem auto;">
+					استخدم حاسبتنا التفاعلية للحصول على تكلفة تقديرية لعملية النقل بناءً على تفاصيل منزلك ونوع الخدمات المطلوبة.
+				</p>
+
+				<div class="calc-card">
+					<!-- Step 1: Home Type -->
+					<div class="calc-group">
+						<span class="calc-label">1. نوع المسكن (مكان النقل):</span>
+						<div class="calc-options" id="homeTypeOptions">
+							<div class="calc-btn-option selected" data-value="apartment" data-base="600">
+								<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18"/><path d="M15 3v18"/><path d="M3 9h18"/><path d="M3 15h18"/></svg>
+								<span>شقة سكنية</span>
+								<span class="sub-text">مثالي للشقق العائلية</span>
+							</div>
+							<div class="calc-btn-option" data-value="villa" data-base="1200">
+								<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+								<span>فيلا / دوبلكس</span>
+								<span class="sub-text">حجم كبير وتفاصيل متعددة</span>
+							</div>
+							<div class="calc-btn-option" data-value="office" data-base="800">
+								<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+								<span>مكتب / شركة</span>
+								<span class="sub-text">تجهيز مكتبي ومعدات</span>
+							</div>
+						</div>
+					</div>
+
+					<!-- Step 2: Size / Rooms -->
+					<div class="calc-group">
+						<span class="calc-label">2. حجم الأثاث (عدد الغرف):</span>
+						<div class="calc-options" id="roomsOptions">
+							<div class="calc-btn-option selected" data-value="small" data-mult="1.0">
+								<span>1 - 2 غرف</span>
+								<span class="sub-text">أثاث خفيف</span>
+							</div>
+							<div class="calc-btn-option" data-value="medium" data-mult="1.4">
+								<span>3 - 4 غرف</span>
+								<span class="sub-text">أثاث عائلي متوسط</span>
+							</div>
+							<div class="calc-btn-option" data-value="large" data-mult="1.9">
+								<span>5 غرف فأكثر</span>
+								<span class="sub-text">أثاث عائلي كبير</span>
+							</div>
+						</div>
+					</div>
+
+					<!-- Step 3: Packing Level -->
+					<div class="calc-group">
+						<span class="calc-label">3. جودة ونوع التغليف المطلوب:</span>
+						<div class="calc-options" id="packingOptions">
+							<div class="calc-btn-option selected" data-value="none" data-add="0">
+								<span>دون تغليف</span>
+								<span class="sub-text">فك وتركيب ونقل فقط</span>
+							</div>
+							<div class="calc-btn-option" data-value="standard" data-add="200">
+								<span>تغليف قياسي</span>
+								<span class="sub-text">كرتون بابلز نايلون</span>
+							</div>
+							<div class="calc-btn-option" data-value="vip" data-add="450">
+								<span>تغليف VIP ممتاز</span>
+								<span class="sub-text">صناديق خشب وحماية مضاعفة</span>
+							</div>
+						</div>
+					</div>
+
+					<!-- Step 4: Floor / Elevator -->
+					<div class="calc-group">
+						<span class="calc-label">4. الدور ومصاعب النقل (في الموقعين):</span>
+						<div class="calc-options" id="floorOptions">
+							<div class="calc-btn-option selected" data-value="ground" data-add="0">
+								<span>أرضي / مصعد متوفر</span>
+								<span class="sub-text">سهل ومباشر</span>
+							</div>
+							<div class="calc-btn-option" data-value="mid-stairs" data-add="150">
+								<span>دور 1-3 (سلم)</span>
+								<span class="sub-text">حمل يدوي بسيط</span>
+							</div>
+							<div class="calc-btn-option" data-value="high-stairs" data-add="300">
+								<span>دور 4+ (سلم)</span>
+								<span class="sub-text">حمل يدوي شاق أو رافعة</span>
+							</div>
+						</div>
+					</div>
+
+					<!-- Results Box -->
+					<div class="calc-result-box">
+						<p>السعر التقديري لعملية النقل بالرياض:</p>
+						<div class="calc-price" id="calcPriceDisplay">600 - 750 ريال</div>
+						<p class="calc-disclaimer">
+							* هذا السعر تقديري بناءً على اختياراتك. السعر النهائي يتم تأكيده بعد المعاينة الهاتفية أو الميدانية المجانية.
+						</p>
+					</div>
+
+					<!-- WhatsApp Lead Button -->
+					<button class="calc-whatsapp-btn" id="calcWhatsappBtn">
+						<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+						<span>أرسل التقدير واحجز موعد معاينة مجاني</span>
+					</button>
+				</div>
+			</div>
+		</section>
+
+		<!-- Interactive Steps Section -->
+		<section id="how-it-works">
+			<div class="container">
+				<h2>خطوات بسيطة لنقل عفش منزلك</h2>
+				<p class="text-center" style="max-width: 600px; margin: -1.5rem auto 3rem auto;">
+					نتبع منهجية عمل واضحة ومنظمة تضمن نقل أثاث منزلك بمنتهى السرعة والأمان وبدون إحداث فوضى.
+				</p>
+
+				<div class="steps-grid">
+					<!-- Step 1 -->
+					<div class="step-card">
+						<div class="step-num">1</div>
+						<h3>الاتصال والاتفاق</h3>
+						<p>تتواصل معنا وتحدد التفاصيل والحجم، ونرسل لك عرض سعر أولي واضح وبدون رسوم خفية.</p>
+					</div>
+
+					<!-- Step 2 -->
+					<div class="step-card">
+						<div class="step-num">2</div>
+						<h3>الفك والتغليف</h3>
+						<p>يصل فريقنا في الموعد المحدد ومعه جميع المعدات، ويقوم بفك الأثاث وتغليفه قطعة قطعة لحمايته.</p>
+					</div>
+
+					<!-- Step 3 -->
+					<div class="step-card">
+						<div class="step-num">3</div>
+						<h3>التحميل والنقل</h3>
+						<p>يتم ترتيب العفش داخل السيارات المغلقة بعناية فائقة، ثم الانتقال بأمان تام عبر سياراتنا المجهزة.</p>
+					</div>
+
+					<!-- Step 4 -->
+					<div class="step-card">
+						<div class="step-num">4</div>
+						<h3>التركيب والترتيب</h3>
+						<p>نقوم بإنزال العفش في المسكن الجديد، وإعادة تركيبه بالكامل، وترتيبه وفق رغبة العميل.</p>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Why Us Section -->
+		<section id="why-us" style="background-color: var(--white); border-top: 1px solid var(--border-color);">
+			<div class="container">
+				<h2>ما الذي يجعلنا الأفضل في الرياض؟</h2>
+				
+				<div class="services-grid" style="margin-top: 3rem;">
+					<div class="card text-center">
+						<div class="bullet-icon animate-pulse-slow" style="margin: 0 auto 1.5rem auto; width: 60px; height: 60px; font-size: 1.5rem;">⭐</div>
+						<h3>خدمة احترافية 100%</h3>
+						<p>نعمل بأساليب علمية حديثة لضمان نقل الأثاث دون أي خدوش، مع الالتزام التام بالمواعيد المتفق عليها.</p>
+					</div>
+
+					<div class="card text-center">
+						<div class="bullet-icon animate-pulse-slow" style="margin: 0 auto 1.5rem auto; width: 60px; height: 60px; font-size: 1.5rem; background-color: var(--primary);">💸</div>
+						<h3>أسعار تنافسية ومناسبة</h3>
+						<p>نقدم أفضل قيمة مقابل السعر بالرياض مع خصومات دورية تناسب الميزانيات المختلفة وبشفافية تامة.</p>
+					</div>
+
+					<div class="card text-center">
+						<div class="bullet-icon animate-pulse-slow" style="margin: 0 auto 1.5rem auto; width: 60px; height: 60px; font-size: 1.5rem;">🛡️</div>
+						<h3>مسؤولية وضمان أمان</h3>
+						<p>كل عملية نقل نقوم بها مغطاة بضمان حقيقي يحمي أثاثك ويوفر لك راحة البال المطلقة طوال فترة النقل.</p>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- FAQ Section -->
+		<section id="faq">
+			<div class="container">
+				<h2>الأسئلة الشائعة حول نقل الأثاث</h2>
+				
+				<div class="faq-container">
+					<!-- FAQ 1 -->
+					<div class="faq-item">
+						<button class="faq-trigger">
+							<span>هل تقدمون ضماناً رسمياً على نقل العفش؟</span>
+							<span class="faq-icon">▼</span>
+						</button>
+						<div class="faq-content">
+							<p>نعم، شركة التميز تقدم ضماناً شاملاً وحقيقياً على سلامة جميع قطع الأثاث والأجهزة والمطابخ أثناء عمليات الفك والرفع والتغليف والنقل والتركيب. وفي حال حدوث أي تلفيات -لا قدر الله- نلتزم بالتعويض الفوري.</p>
+						</div>
+					</div>
+
+					<!-- FAQ 2 -->
+					<div class="faq-item">
+						<button class="faq-trigger">
+							<span>هل تشمل الخدمة عمليات فك وتركيب المكيفات والأجهزة؟</span>
+							<span class="faq-icon">▼</span>
+						</button>
+						<div class="faq-content">
+							<p>نعم، تشمل خدماتنا فك وتركيب غرف النوم بجميع أنواعها، الستائر، الشاشات، المطابخ الجاهزة والتفصيل، بالإضافة لفك وتركيب مكيفات السبلت والشباك بواسطة فنيين وتكييف مؤهلين.</p>
+						</div>
+					</div>
+
+					<!-- FAQ 3 -->
+					<div class="faq-item">
+						<button class="faq-trigger">
+							<span>ما هي أسعار نقل العفش بالرياض لديكم؟</span>
+							<span class="faq-icon">▼</span>
+						</button>
+						<div class="faq-content">
+							<p>تبدأ أسعار النقل من 400 ريال وتختلف التكلفة بناءً على كمية الأثاث المطلوب نقله، عدد الأدوار والموقع، وحاجة العميل لخدمات التغليف الإضافية أو الاستعانة برافعات هيدروليكية للأدوار العليا. يمكنك حساب التكلفة التقريبية فورياً عبر حاسبة الموقع.</p>
+						</div>
+					</div>
+
+					<!-- FAQ 4 -->
+					<div class="faq-item">
+						<button class="faq-trigger">
+							<span>هل توفرون خدمة نقل العفش خارج الرياض؟</span>
+							<span class="faq-icon">▼</span>
+						</button>
+						<div class="faq-content">
+							<p>بالتأكيد. نوفر سيارات دينا مخصصة لنقل الأثاث بين الرياض وجميع مدن المملكة (جدة، الدمام، مكة، المدينة، القصيم، وغيرها) مع التغليف المؤمن والضمان الكامل على الطرق السريعة.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Call-To-Action Banner -->
+		<section class="container" style="padding: 2rem 1.5rem 5rem 1.5rem;">
+			<div class="cta-banner">
+				<h2>هل تريد نقل عفش منزلك بدون تعب؟</h2>
+				<p>اتصل بنا الآن واحصل على تقدير سعر فوري ومعاينة مجانية لأثاثك بالرياض مع خصم فوري 20%!</p>
+				<div class="cta-banner-buttons">
+					<a href="tel:+966500000000" class="btn btn-accent btn-lg">
+						<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+						<span>اتصل هاتفياً</span>
+					</a>
+					<a href="https://wa.me/966500000000" class="btn btn-primary btn-lg" style="background-color: #25D366;">
+						<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+						<span>راسلنا عبر واتساب</span>
+					</a>
+				</div>
+			</div>
+		</section>
+
+		<!-- Floating Customer CTAs -->
+		<div class="floating-actions">
+			<a href="https://wa.me/966500000000" class="floating-btn floating-whatsapp" aria-label="تواصل واتساب" target="_blank">
+				<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+			</a>
+			<a href="tel:+966500000000" class="floating-btn floating-call" aria-label="اتصل بنا">
+				<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+			</a>
+		</div>
+
 		<Footer />
+
+		<!-- Calculator & Accordion Page Logic -->
+		<script>
+			// Calculator logic
+			let basePrice = 600;
+			let roomMultiplier = 1.0;
+			let packingAdd = 0;
+			let floorAdd = 0;
+
+			let homeTypeText = 'شقة سكنية';
+			let roomText = '1 - 2 غرف';
+			let packingText = 'دون تغليف';
+			let floorText = 'أرضي / مصعد متوفر';
+
+			function updatePrice() {
+				const minPrice = Math.round((basePrice * roomMultiplier) + packingAdd + floorAdd);
+				const maxPrice = Math.round(minPrice * 1.25);
+				
+				const display = document.getElementById('calcPriceDisplay');
+				if (display) {
+					display.textContent = `${minPrice} - ${maxPrice} ريال سعودي`;
+				}
+			}
+
+			// Hook up selection elements
+			function setupGroup(containerId, callback) {
+				const container = document.getElementById(containerId);
+				if (!container) return;
+				
+				const options = container.querySelectorAll('.calc-btn-option');
+				options.forEach(opt => {
+					opt.addEventListener('click', () => {
+						options.forEach(o => o.classList.remove('selected'));
+						opt.classList.add('selected');
+						callback(opt);
+						updatePrice();
+					});
+				});
+			}
+
+			setupGroup('homeTypeOptions', (el) => {
+				basePrice = parseFloat(el.getAttribute('data-base') || '600');
+				homeTypeText = el.querySelector('span:first-of-type')?.textContent || '';
+			});
+
+			setupGroup('roomsOptions', (el) => {
+				roomMultiplier = parseFloat(el.getAttribute('data-mult') || '1.0');
+				roomText = el.querySelector('span:first-of-type')?.textContent || '';
+			});
+
+			setupGroup('packingOptions', (el) => {
+				packingAdd = parseFloat(el.getAttribute('data-add') || '0');
+				packingText = el.querySelector('span:first-of-type')?.textContent || '';
+			});
+
+			setupGroup('floorOptions', (el) => {
+				floorAdd = parseFloat(el.getAttribute('data-add') || '0');
+				floorText = el.querySelector('span:first-of-type')?.textContent || '';
+			});
+
+			// WhatsApp integration button click
+			const whatsappBtn = document.getElementById('calcWhatsappBtn');
+			if (whatsappBtn) {
+				whatsappBtn.addEventListener('click', () => {
+					const display = document.getElementById('calcPriceDisplay');
+					const priceText = display ? display.textContent : '600 - 750 ريال';
+					
+					const text = `السلام عليكم ورحمة الله وبركاته، أود حجز موعد نقل أثاث بالرياض.
+تفاصيل الطلب التقديرية:
+- نوع المسكن: ${homeTypeText}
+- حجم الأثاث: ${roomText}
+- التغليف المطلوب: ${packingText}
+- الطابق والصعوبة: ${floorText}
+- السعر التقديري للموقع: ${priceText}
+
+أرجو التواصل لتأكيد الموعد والمعاينة المجانية.`;
+					
+					const encoded = encodeURIComponent(text);
+					window.open(`https://wa.me/966500000000?text=${encoded}`, '_blank');
+				});
+			}
+
+			// Accordion logic
+			const faqTriggers = document.querySelectorAll('.faq-trigger');
+			faqTriggers.forEach(trigger => {
+				trigger.addEventListener('click', () => {
+					const parent = trigger.parentElement;
+					if (!parent) return;
+					
+					const content = parent.querySelector('.faq-content') as HTMLElement;
+					if (!content) return;
+
+					const isActive = parent.classList.contains('active');
+
+					// Close other active FAQ items
+					document.querySelectorAll('.faq-item').forEach(item => {
+						item.classList.remove('active');
+						const itemContent = item.querySelector('.faq-content') as HTMLElement;
+						if (itemContent) itemContent.style.maxHeight = '0';
+					});
+
+					if (!isActive) {
+						parent.classList.add('active');
+						content.style.maxHeight = content.scrollHeight + 'px';
+					} else {
+						parent.classList.remove('active');
+						content.style.maxHeight = '0';
+					}
+				});
+			});
+		</script>
 	</body>
 </html>
