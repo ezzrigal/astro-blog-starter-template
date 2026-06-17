@@ -7,7 +7,7 @@ backend:
   name: github
   repo: ezzrigal/astro-blog-starter-template   # ← REPLACE THIS
   branch: main
-  base_url: https://nqlafshriyadh.com/       # ← REPLACE with your Cloudflare Pages URL
+  base_url: https://nqlafshriyadh.com
   auth_endpoint: /oauth/callback
 
 # --------------- Media & Files --------------------------------
