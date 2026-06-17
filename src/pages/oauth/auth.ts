@@ -1,15 +1,10 @@
-// OAuth INITIATION endpoint — Decap CMS opens this in a popup
-// Redirects the user to GitHub's authorization page
-//
-// Required env vars (set in Cloudflare Pages → Settings → Environment Variables):
-//   GITHUB_CLIENT_ID     — from your GitHub OAuth App
-
 import type { APIRoute } from 'astro';
 
 export const prerender = false;
 
-export const GET: APIRoute = async ({ url }) => {
-  const clientId = import.meta.env.GITHUB_CLIENT_ID;
+export const GET: APIRoute = async ({ url, locals }) => {
+  // @ts-ignore
+  const clientId = locals.runtime?.env?.GITHUB_CLIENT_ID || import.meta.env.GITHUB_CLIENT_ID || (typeof process !== 'undefined' ? process.env.GITHUB_CLIENT_ID : undefined);
 
   if (!clientId) {
     return new Response(
