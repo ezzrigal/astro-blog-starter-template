@@ -1,0 +1,347 @@
+backend:
+  name: github
+  repo: ezzrigal/astro-blog-starter-template
+  branch: main
+  base_url: https://nqlafshriyadh.com
+  auth_endpoint: oauth/auth
+
+media_folder: "public/images/blog"
+public_folder: "/images/blog"
+
+locale: ar
+
+collections:
+  # ──────────────────────────────────────────────
+  #  SITE SETTINGS  (WordPress-style options page)
+  # ──────────────────────────────────────────────
+  - name: "site_settings"
+    label: "⚙️ إعدادات الموقع"
+    files:
+      - name: "general"
+        label: "الإعدادات العامة"
+        file: "src/data/site-settings.json"
+        fields:
+          - label: "رابط الموقع (URL)"
+            name: "siteUrl"
+            widget: "string"
+            hint: "مثال: https://nqlafshriyadh.com — بدون شرطة مائلة في النهاية"
+
+          - label: "اسم الشركة بالعربي"
+            name: "companyNameAr"
+            widget: "string"
+
+          - label: "اسم الشركة بالإنجليزي"
+            name: "companyNameEn"
+            widget: "string"
+
+          - label: "رقم الهاتف"
+            name: "phone"
+            widget: "string"
+            hint: "مثال: +966500000000"
+
+          - label: "رقم واتساب"
+            name: "whatsapp"
+            widget: "string"
+            hint: "مثال: +966500000000 (يمكن أن يختلف عن رقم الهاتف)"
+
+          - label: "البريد الإلكتروني"
+            name: "email"
+            widget: "string"
+
+          - label: "الشعار (Logo)"
+            name: "logo"
+            widget: "image"
+
+          - label: "الأيقونة (Favicon)"
+            name: "favicon"
+            widget: "image"
+
+          - label: "اللون الأساسي"
+            name: "colorPrimary"
+            widget: "color"
+            default: "#0f766e"
+
+          - label: "اللون الأساسي عند التحويم"
+            name: "colorPrimaryHover"
+            widget: "color"
+            default: "#0d9488"
+
+          - label: "اللون الأساسي الفاتح"
+            name: "colorPrimaryLight"
+            widget: "color"
+            default: "#f0fdfa"
+
+          - label: "اللون الثانوي"
+            name: "colorSecondary"
+            widget: "color"
+            default: "#047857"
+
+          - label: "لون التمييز (Accent)"
+            name: "colorAccent"
+            widget: "color"
+            default: "#d97706"
+
+          - label: "لون التمييز عند التحويم"
+            name: "colorAccentHover"
+            widget: "color"
+            default: "#b45309"
+
+          - label: "لون التمييز الفاتح"
+            name: "colorAccentLight"
+            widget: "color"
+            default: "#fef3c7"
+
+          - label: "عنوان الصفحة الرئيسية (Meta Title)"
+            name: "metaTitle"
+            widget: "string"
+            hint: "يظهر في تبويب المتصفح ونتائج جوجل — 50-60 حرف مثالي"
+
+          - label: "وصف الموقع (Meta Description)"
+            name: "metaDescription"
+            widget: "text"
+            hint: "يظهر في نتائج جوجل — 140-160 حرف مثالي"
+
+          - label: "صورة المشاركة الافتراضية (OG Image)"
+            name: "ogImage"
+            widget: "image"
+            hint: "تظهر عند مشاركة الموقع على واتساب وتويتر — 1200×630 بكسل"
+
+          - label: "كود تحقق جوجل (Google Verification)"
+            name: "googleVerification"
+            widget: "string"
+            required: false
+            hint: "من Google Search Console — content الخاص بوسم meta"
+
+          - label: "معرّف Google Analytics"
+            name: "googleAnalyticsId"
+            widget: "string"
+            required: false
+            hint: "مثال: G-XXXXXXXXXX"
+
+          - label: "نص الشريط الترويجي"
+            name: "promoBanner"
+            widget: "string"
+            required: false
+
+          - label: "تفعيل الشريط الترويجي"
+            name: "promoBannerActive"
+            widget: "boolean"
+            default: true
+
+          - label: "رابط واتساب للتواصل"
+            name: "socialWhatsapp"
+            widget: "string"
+            required: false
+
+          - label: "رابط تويتر"
+            name: "socialTwitter"
+            widget: "string"
+            required: false
+
+          - label: "رابط انستغرام"
+            name: "socialInstagram"
+            widget: "string"
+            required: false
+
+          - label: "رابط سناب شات"
+            name: "socialSnapchat"
+            widget: "string"
+            required: false
+
+          - label: "نص حقوق النشر (Footer)"
+            name: "footerCopyright"
+            widget: "string"
+
+          - label: "شعار الفوتر"
+            name: "footerTagline"
+            widget: "string"
+
+  # ──────────────────────────────────────────────
+  #  LOCAL SEO SETTINGS
+  # ──────────────────────────────────────────────
+  - name: "local_seo"
+    label: "📍 إعدادات السيو المحلي"
+    files:
+      - name: "seo"
+        label: "بيانات السيو المحلي"
+        file: "src/data/local-seo.json"
+        fields:
+          - label: "العنوان الكامل بالعربي"
+            name: "streetAddress"
+            widget: "string"
+
+          - label: "الحي"
+            name: "district"
+            widget: "string"
+
+          - label: "المدينة"
+            name: "city"
+            widget: "string"
+            default: "الرياض"
+
+          - label: "المنطقة الإدارية"
+            name: "region"
+            widget: "string"
+            default: "منطقة الرياض"
+
+          - label: "الرمز البريدي"
+            name: "postalCode"
+            widget: "string"
+
+          - label: "رمز الدولة"
+            name: "country"
+            widget: "string"
+            default: "SA"
+
+          - label: "خط العرض (Latitude)"
+            name: "lat"
+            widget: "number"
+            value_type: "float"
+            hint: "مثال: 24.7136 — يمكن نسخه من Google Maps"
+
+          - label: "خط الطول (Longitude)"
+            name: "lng"
+            widget: "number"
+            value_type: "float"
+            hint: "مثال: 46.6753"
+
+          - label: "أدنى سعر للخدمة (ريال)"
+            name: "priceLow"
+            widget: "number"
+            default: 400
+
+          - label: "أعلى سعر للخدمة (ريال)"
+            name: "priceHigh"
+            widget: "number"
+            default: 3000
+
+          - label: "عملة الأسعار"
+            name: "currency"
+            widget: "string"
+            default: "SAR"
+
+          - label: "سنة التأسيس"
+            name: "foundedYear"
+            widget: "number"
+
+          - label: "عدد الموظفين"
+            name: "employeeCount"
+            widget: "number"
+
+          - label: "رقم السجل التجاري (CR)"
+            name: "crNumber"
+            widget: "string"
+            required: false
+
+          - label: "رابط تقييم جوجل"
+            name: "reviewLink"
+            widget: "string"
+            required: false
+            hint: "مثال: https://g.page/your-business/review"
+
+          - label: "رابط تضمين خريطة جوجل"
+            name: "mapsEmbedUrl"
+            widget: "string"
+            required: false
+
+          - label: "مواعيد العمل"
+            name: "openingHours"
+            widget: "list"
+            fields:
+              - label: "الأيام (مفصولة بفاصلة)"
+                name: "days"
+                widget: "string"
+                hint: "مثال: Sunday,Monday,Tuesday,Wednesday,Thursday"
+              - label: "وقت الفتح"
+                name: "opens"
+                widget: "string"
+                hint: "مثال: 07:00"
+              - label: "وقت الإغلاق"
+                name: "closes"
+                widget: "string"
+                hint: "مثال: 22:00"
+
+          - label: "مناطق الخدمة (أحياء الرياض)"
+            name: "serviceAreas"
+            widget: "list"
+            field:
+              label: "اسم الحي"
+              name: "district"
+              widget: "string"
+
+          - label: "المدن خارج الرياض"
+            name: "intercityCities"
+            widget: "list"
+            field:
+              label: "اسم المدينة"
+              name: "city"
+              widget: "string"
+
+          - label: "تقييم جوجل الحالي"
+            name: "aggregateRating"
+            widget: "object"
+            fields:
+              - {label: "قيمة التقييم", name: "ratingValue", widget: "string", default: "4.9"}
+              - {label: "عدد التقييمات", name: "reviewCount", widget: "string"}
+              - {label: "أعلى تقييم", name: "bestRating", widget: "string", default: "5"}
+              - {label: "أدنى تقييم", name: "worstRating", widget: "string", default: "1"}
+
+  # ──────────────────────────────────────────────
+  #  SERVICES COLLECTION
+  # ──────────────────────────────────────────────
+  - name: "services"
+    label: "🔧 الخدمات"
+    label_singular: "خدمة"
+    folder: "src/content/services"
+    create: true
+    delete: true
+    slug: "{{slug}}"
+    extension: "md"
+    format: "frontmatter"
+    fields:
+      - {label: "اسم الخدمة", name: "title", widget: "string"}
+      - {label: "الوصف", name: "description", widget: "text"}
+      - label: "أيقونة SVG Path"
+        name: "icon"
+        widget: "string"
+        required: false
+        hint: "مسار SVG للأيقونة"
+      - {label: "ترتيب الظهور", name: "order", widget: "number", default: 1}
+      - {label: "مفعّلة؟", name: "active", widget: "boolean", default: true}
+
+  # ──────────────────────────────────────────────
+  #  FAQ COLLECTION
+  # ──────────────────────────────────────────────
+  - name: "faq"
+    label: "❓ الأسئلة الشائعة"
+    label_singular: "سؤال"
+    folder: "src/content/faq"
+    create: true
+    delete: true
+    slug: "{{slug}}"
+    extension: "md"
+    format: "frontmatter"
+    fields:
+      - {label: "السؤال", name: "question", widget: "string"}
+      - {label: "الإجابة", name: "answer", widget: "text", hint: "ابدأ بالإجابة المباشرة في أول جملة"}
+      - {label: "ترتيب الظهور", name: "order", widget: "number", default: 1}
+
+  # ──────────────────────────────────────────────
+  #  BLOG POSTS
+  # ──────────────────────────────────────────────
+  - name: "blog"
+    label: "📝 المدونة"
+    label_singular: "مقال"
+    folder: "src/content/blog"
+    create: true
+    delete: true
+    slug: "{{slug}}"
+    extension: "md"
+    format: "frontmatter"
+    fields:
+      - {label: "العنوان", name: "title", widget: "string"}
+      - {label: "الوصف", name: "description", widget: "text"}
+      - {label: "تاريخ النشر", name: "pubDate", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false}
+      - {label: "تاريخ التحديث", name: "updatedDate", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false, required: false}
+      - {label: "صورة المقال", name: "heroImage", widget: "image", required: false}
+      - {label: "المحتوى", name: "body", widget: "markdown"}

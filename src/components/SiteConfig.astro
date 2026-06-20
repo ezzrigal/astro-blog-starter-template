@@ -1,0 +1,49 @@
+---
+/**
+ * src/components/SiteConfig.astro
+ * Injects dynamic CSS variables (colors) from site-settings.json
+ * so changing colors in Decap CMS instantly updates the whole site.
+ * Also handles Google Analytics injection.
+ * Import this in BaseHead.astro
+ */
+import { COLORS, GA_ID, GOOGLE_VERIFY } from '../lib/settings';
+---
+
+<!-- Dynamic CSS variables from site settings -->
+<style define:vars={{
+  colorPrimary:      COLORS.primary,
+  colorPrimaryHover: COLORS.primaryHover,
+  colorPrimaryLight: COLORS.primaryLight,
+  colorSecondary:    COLORS.secondary,
+  colorAccent:       COLORS.accent,
+  colorAccentHover:  COLORS.accentHover,
+  colorAccentLight:  COLORS.accentLight,
+}}>
+  :root {
+    --primary:       var(--colorPrimary);
+    --primary-hover: var(--colorPrimaryHover);
+    --primary-light: var(--colorPrimaryLight);
+    --secondary:     var(--colorSecondary);
+    --accent:        var(--colorAccent);
+    --accent-hover:  var(--colorAccentHover);
+    --accent-light:  var(--colorAccentLight);
+  }
+</style>
+
+<!-- Google Search Console verification -->
+{GOOGLE_VERIFY && (
+  <meta name="google-site-verification" content={GOOGLE_VERIFY} />
+)}
+
+<!-- Google Analytics (only loads when GA_ID is set in settings) -->
+{GA_ID && (
+  <>
+    <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}></script>
+    <script define:vars={{ GA_ID }}>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', GA_ID);
+    </script>
+  </>
+)}

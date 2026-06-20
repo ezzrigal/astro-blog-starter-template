@@ -1,254 +1,128 @@
 ---
-import { SITE_TITLE } from '../consts';
+/**
+ * src/components/Header.astro
+ * Navigation header — all contact info pulled from settings
+ */
+import { COMPANY_NAME_AR, LOGO, WHATSAPP_URL, PROMO_TEXT, PROMO_ACTIVE } from '../lib/settings';
 ---
 
+{PROMO_ACTIVE && (
+  <div class="promo-bar">
+    <p>{PROMO_TEXT}</p>
+  </div>
+)}
+
 <header class="glass sticky-header">
-	<nav class="container">
-		<!-- Logo Section (RTL: right side) -->
-		<div class="logo-area">
-			<a href="/" class="logo-link">
-				<img src="/logo.png" alt="لوجو نقل عفش بالرياض" class="logo-img" />
-				<span class="sr-only">{SITE_TITLE}</span>
-			</a>
-		</div>
+  <nav class="container">
+    <!-- Logo -->
+    <div class="logo-area">
+      <a href="/" class="logo-link">
+        <img src={LOGO} alt={`لوجو ${COMPANY_NAME_AR}`} class="logo-img" />
+        <span class="sr-only">{COMPANY_NAME_AR}</span>
+      </a>
+    </div>
 
-		<!-- Nav Links Section (RTL: middle/left) -->
-		<div class="nav-menu" id="navMenu">
-			<a href="/#hero" class="nav-link active">الرئيسية</a>
-			<a href="/services" class="nav-link">خدماتنا</a>
-			<a href="/#calculator" class="nav-link">حاسبة الأسعار</a>
-			<a href="/#why-us" class="nav-link">لماذا نحن؟</a>
-			<a href="/#faq" class="nav-link">الأسئلة الشائعة</a>
-			<a href="/blog" class="nav-link">المدونة</a>
-		</div>
+    <!-- Nav Links -->
+    <div class="nav-menu" id="navMenu">
+      <a href="/#hero"       class="nav-link active">الرئيسية</a>
+      <a href="/services"    class="nav-link">خدماتنا</a>
+      <a href="/#calculator" class="nav-link">حاسبة الأسعار</a>
+      <a href="/#why-us"     class="nav-link">لماذا نحن؟</a>
+      <a href="/#faq"        class="nav-link">الأسئلة الشائعة</a>
+      <a href="/blog"        class="nav-link">المدونة</a>
+    </div>
 
-		<!-- CTA Button (RTL: far left) -->
-		<div class="header-cta">
-			<a href="https://wa.me/966500000000" class="btn btn-accent btn-sm animate-pulse-slow" target="_blank">
-				<span>تواصل واتساب</span>
-				<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-			</a>
-		</div>
+    <!-- CTA -->
+    <div class="header-cta">
+      <a href={WHATSAPP_URL} class="btn btn-accent btn-sm animate-pulse-slow" target="_blank" rel="noopener noreferrer">
+        <span>تواصل واتساب</span>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+        </svg>
+      </a>
+    </div>
 
-		<!-- Hamburger Toggle for Mobile -->
-		<button class="mobile-toggle" aria-label="افتح القائمة" id="mobileToggle">
-			<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-				<line x1="3" y1="12" x2="21" y2="12"></line>
-				<line x1="3" y1="6" x2="21" y2="6"></line>
-				<line x1="3" y1="18" x2="21" y2="18"></line>
-			</svg>
-		</button>
-	</nav>
+    <!-- Hamburger -->
+    <button class="mobile-toggle" aria-label="افتح القائمة" id="mobileToggle">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="3" y1="12" x2="21" y2="12"></line>
+        <line x1="3" y1="6"  x2="21" y2="6"></line>
+        <line x1="3" y1="18" x2="21" y2="18"></line>
+      </svg>
+    </button>
+  </nav>
 </header>
 
 <script>
-	// Interactive mobile menu toggle
-	const mobileToggle = document.getElementById('mobileToggle');
-	const navMenu = document.getElementById('navMenu');
-
-	if (mobileToggle && navMenu) {
-		mobileToggle.addEventListener('click', () => {
-			navMenu.classList.toggle('active');
-			mobileToggle.classList.toggle('active');
-		});
-
-		// Close menu when clicking a link
-		const navLinks = navMenu.querySelectorAll('a');
-		navLinks.forEach(link => {
-			link.addEventListener('click', () => {
-				navMenu.classList.remove('active');
-				mobileToggle.classList.remove('active');
-			});
-		});
-	}
-
-	// Highlight active link based on current URL path
-	const currentPath = window.location.pathname;
-	const links = document.querySelectorAll('.nav-menu a');
-	
-	let matched = false;
-	links.forEach(link => {
-		const href = link.getAttribute('href');
-		if (href && (currentPath === href || currentPath === href + '/')) {
-			links.forEach(a => a.classList.remove('active'));
-			link.classList.add('active');
-			matched = true;
-		}
-	});
-
-	// Active link styling on scroll (only if on homepage)
-	if (currentPath === '/' || currentPath === '') {
-		window.addEventListener('scroll', () => {
-			const sections = document.querySelectorAll('section, header');
-			const scrollPos = window.scrollY || document.documentElement.scrollTop;
-			
-			sections.forEach(section => {
-				const top = section.offsetTop - 100;
-				const bottom = top + section.offsetHeight;
-				
-				if (scrollPos >= top && scrollPos < bottom) {
-					const id = section.getAttribute('id');
-					if (id) {
-						const activeLink = document.querySelector(`.nav-menu a[href="/#${id}"]`) || document.querySelector(`.nav-menu a[href="#${id}"]`);
-						if (activeLink) {
-							document.querySelectorAll('.nav-menu a').forEach(a => a.classList.remove('active'));
-							activeLink.classList.add('active');
-						}
-					}
-				}
-			});
-		});
-	}
+  const mobileToggle = document.getElementById('mobileToggle');
+  const navMenu = document.getElementById('navMenu');
+  if (mobileToggle && navMenu) {
+    mobileToggle.addEventListener('click', () => {
+      navMenu.classList.toggle('active');
+      mobileToggle.classList.toggle('active');
+    });
+    navMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navMenu.classList.remove('active');
+        mobileToggle.classList.remove('active');
+      });
+    });
+  }
+  const currentPath = window.location.pathname;
+  const links = document.querySelectorAll('.nav-menu a');
+  links.forEach(link => {
+    const href = link.getAttribute('href');
+    if (href && (currentPath === href || currentPath === href + '/')) {
+      links.forEach(a => a.classList.remove('active'));
+      link.classList.add('active');
+    }
+  });
 </script>
 
 <style>
-	.sticky-header {
-		position: fixed;
-		top: 0;
-		right: 0;
-		left: 0;
-		height: 80px;
-		z-index: 1000;
-		box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
-		transition: var(--transition-smooth);
-		display: flex;
-		align-items: center;
-		border-bottom: 1px solid rgba(15, 118, 110, 0.1);
-	}
-
-	nav {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		width: 100%;
-	}
-
-	.logo-area {
-		display: flex;
-		align-items: center;
-	}
-
-	.logo-link {
-		display: flex;
-		align-items: center;
-	}
-
-	.logo-img {
-		height: 55px;
-		width: auto;
-		object-fit: contain;
-		filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.05));
-		transition: var(--transition-smooth);
-	}
-
-	.logo-img:hover {
-		transform: scale(1.03);
-	}
-
-	.nav-menu {
-		display: flex;
-		align-items: center;
-		gap: 2rem;
-	}
-
-	.nav-link {
-		color: var(--text-dark);
-		font-weight: 600;
-		font-size: 1rem;
-		padding: 0.5rem 0;
-		position: relative;
-	}
-
-	.nav-link::after {
-		content: '';
-		position: absolute;
-		bottom: 0;
-		right: 0;
-		width: 0;
-		height: 3px;
-		background-color: var(--primary);
-		transition: var(--transition-smooth);
-		border-radius: 2px;
-	}
-
-	.nav-link:hover, .nav-link.active {
-		color: var(--primary);
-	}
-
-	.nav-link:hover::after, .nav-link.active::after {
-		width: 100%;
-	}
-
-	.header-cta {
-		display: flex;
-		align-items: center;
-	}
-
-	.btn-sm {
-		padding: 0.5rem 1.25rem;
-		font-size: 0.9rem;
-		border-radius: 6px;
-	}
-
-	.mobile-toggle {
-		display: none;
-		background: none;
-		border: none;
-		color: var(--text-dark);
-		cursor: pointer;
-		padding: 0.5rem;
-	}
-
-	/* Responsive menu */
-	@media (max-width: 992px) {
-		.nav-menu {
-			position: fixed;
-			top: 80px;
-			right: -100%;
-			width: 280px;
-			height: calc(100vh - 80px);
-			background-color: var(--white);
-			flex-direction: column;
-			align-items: flex-start;
-			padding: 2rem;
-			gap: 1.5rem;
-			box-shadow: -4px 10px 20px rgba(0, 0, 0, 0.05);
-			transition: right 0.4s ease;
-			border-left: 1px solid var(--border-color);
-		}
-
-		.nav-menu.active {
-			right: 0;
-		}
-
-		.nav-link {
-			width: 100%;
-			font-size: 1.1rem;
-			border-bottom: 1px solid var(--bg-light);
-			padding-bottom: 0.75rem;
-		}
-
-		.nav-link::after {
-			display: none;
-		}
-
-		.mobile-toggle {
-			display: block;
-		}
-
-		.header-cta {
-			margin-right: auto;
-			margin-left: 1rem;
-		}
-	}
-
-	@media (max-width: 480px) {
-		.logo-img {
-			height: 45px;
-		}
-		
-		.header-cta {
-			display: none; /* Hide button on tiny screens, show floating button instead */
-		}
-	}
+  .promo-bar {
+    background: linear-gradient(90deg, var(--accent), var(--primary));
+    color: white;
+    text-align: center;
+    padding: 0.4rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+  }
+  .promo-bar p { color: white; margin: 0; }
+  .sticky-header {
+    position: fixed;
+    top: 0; right: 0; left: 0;
+    height: 80px;
+    z-index: 1000;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+    transition: var(--transition-smooth);
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid rgba(15,118,110,0.1);
+  }
+  nav { display: flex; align-items: center; justify-content: space-between; width: 100%; }
+  .logo-area { display: flex; align-items: center; }
+  .logo-link { display: flex; align-items: center; }
+  .logo-img { height: 55px; width: auto; object-fit: contain; transition: var(--transition-smooth); }
+  .logo-img:hover { transform: scale(1.03); }
+  .nav-menu { display: flex; align-items: center; gap: 2rem; }
+  .nav-link { color: var(--text-dark); font-weight: 600; font-size: 1rem; padding: 0.5rem 0; position: relative; }
+  .nav-link::after { content: ''; position: absolute; bottom: 0; right: 0; width: 0; height: 3px; background-color: var(--primary); transition: var(--transition-smooth); border-radius: 2px; }
+  .nav-link:hover, .nav-link.active { color: var(--primary); }
+  .nav-link:hover::after, .nav-link.active::after { width: 100%; }
+  .header-cta { display: flex; align-items: center; }
+  .btn-sm { padding: 0.5rem 1.25rem; font-size: 0.9rem; border-radius: 6px; }
+  .mobile-toggle { display: none; background: none; border: none; color: var(--text-dark); cursor: pointer; padding: 0.5rem; }
+  @media (max-width: 992px) {
+    .nav-menu { position: fixed; top: 80px; right: -100%; width: 280px; height: calc(100vh - 80px); background-color: var(--white); flex-direction: column; align-items: flex-start; padding: 2rem; gap: 1.5rem; box-shadow: -4px 10px 20px rgba(0,0,0,0.05); transition: right 0.4s ease; border-left: 1px solid var(--border-color); }
+    .nav-menu.active { right: 0; }
+    .nav-link { width: 100%; font-size: 1.1rem; border-bottom: 1px solid var(--bg-light); padding-bottom: 0.75rem; }
+    .nav-link::after { display: none; }
+    .mobile-toggle { display: block; }
+    .header-cta { margin-right: auto; margin-left: 1rem; }
+  }
+  @media (max-width: 480px) {
+    .logo-img { height: 45px; }
+    .header-cta { display: none; }
+  }
 </style>

@@ -1,0 +1,31 @@
+---
+/**
+ * src/components/SchemaHead.astro
+ * Injects structured data JSON-LD scripts into the page <head>
+ * Import this in BaseHead.astro
+ */
+import { buildLocalBusinessSchema, buildFAQSchema } from '../lib/schema';
+
+interface Props {
+  faqs?: Array<{ question: string; answer: string }>;
+  extraSchema?: object;
+}
+
+const { faqs, extraSchema } = Astro.props;
+
+const localBusinessSchema = buildLocalBusinessSchema();
+const faqSchema = faqs && faqs.length > 0 ? buildFAQSchema(faqs) : null;
+---
+
+<!-- LocalBusiness + MovingCompany Schema -->
+<script type="application/ld+json" set:html={JSON.stringify(localBusinessSchema)} />
+
+<!-- FAQ Schema (only injected when faqs prop is passed) -->
+{faqSchema && (
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+)}
+
+<!-- Extra page-specific schema (Article, Breadcrumb, etc.) -->
+{extraSchema && (
+  <script type="application/ld+json" set:html={JSON.stringify(extraSchema)} />
+)}

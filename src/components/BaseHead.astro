@@ -1,48 +1,97 @@
 ---
-// Import the global.css file here so that it is included on
-// all pages through the use of the <BaseHead /> component.
-import '../styles/global.css';
+/**
+ * src/components/BaseHead.astro
+ * All <head> meta tags — now powered by settings.ts
+ * Replaces all hardcoded values with dynamic imports
+ */
+import {
+  SITE_URL, SITE_TITLE, SITE_DESCRIPTION,
+  COMPANY_NAME_AR, FAVICON, OG_IMAGE
+} from '../lib/settings';
+import SiteConfig from './SiteConfig.astro';
+import SchemaHead from './SchemaHead.astro';
 
 interface Props {
-	title: string;
-	description: string;
-	image?: string;
+  title?: string;
+  description?: string;
+  image?: string;
+  faqs?: Array<{ question: string; answer: string }>;
+  extraSchema?: object;
+  noindex?: boolean;
 }
 
-const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const {
+  title = SITE_TITLE,
+  description = SITE_DESCRIPTION,
+  image = OG_IMAGE,
+  faqs,
+  extraSchema,
+  noindex = false,
+} = Astro.props;
 
-const { title, description, image = '/blog-placeholder-1.jpg' } = Astro.props;
+const canonicalURL = new URL(Astro.url.pathname, SITE_URL);
+const ogImageURL   = new URL(image, SITE_URL);
+const pageTitle    = title === SITE_TITLE ? title : `${title} | ${COMPANY_NAME_AR}`;
 ---
 
-<!-- Global Metadata -->
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-<meta name="generator" content={Astro.generator} />
+<!-- Charset & Viewport -->
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<!-- Google Fonts (Cairo) -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<!-- Dynamic colors, analytics, verification tags -->
+<SiteConfig />
 
-<!-- Canonical URL -->
+<!-- Canonical & hreflang -->
 <link rel="canonical" href={canonicalURL} />
+<link rel="alternate" hreflang="ar-SA" href={canonicalURL} />
+<link rel="alternate" hreflang="x-default" href={canonicalURL} />
 
-<!-- Primary Meta Tags -->
-<title>{title}</title>
-<meta name="title" content={title} />
+<!-- Primary Meta -->
+<title>{pageTitle}</title>
 <meta name="description" content={description} />
+<meta name="generator" content={Astro.generator} />
+{noindex && <meta name="robots" content="noindex, nofollow" />}
 
-<!-- Open Graph / Facebook -->
-<meta property="og:type" content="website" />
-<meta property="og:url" content={Astro.url} />
-<meta property="og:title" content={title} />
+<!-- Favicon -->
+<link rel="icon" type="image/svg+xml" href={FAVICON} />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+<!-- Open Graph -->
+<meta property="og:type"        content="website" />
+<meta property="og:url"         content={canonicalURL} />
+<meta property="og:title"       content={pageTitle} />
 <meta property="og:description" content={description} />
-<meta property="og:image" content={new URL(image, Astro.url)} />
+<meta property="og:image"       content={ogImageURL} />
+<meta property="og:locale"      content="ar_SA" />
+<meta property="og:site_name"   content={COMPANY_NAME_AR} />
 
-<!-- Twitter -->
-<meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:url" content={Astro.url} />
-<meta property="twitter:title" content={title} />
-<meta property="twitter:description" content={description} />
-<meta property="twitter:image" content={new URL(image, Astro.url)} />
+<!-- Twitter Card -->
+<meta name="twitter:card"        content="summary_large_image" />
+<meta name="twitter:url"         content={canonicalURL} />
+<meta name="twitter:title"       content={pageTitle} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image"       content={ogImageURL} />
+
+<!-- Fonts — optimized loading -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  rel="preload"
+  as="style"
+  href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap"
+/>
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap"
+  media="print"
+  onload="this.media='all'"
+/>
+<noscript>
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap"
+  />
+</noscript>
+
+<!-- Structured Data (JSON-LD) -->
+<SchemaHead faqs={faqs} extraSchema={extraSchema} />

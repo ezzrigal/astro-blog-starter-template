@@ -1,0 +1,36 @@
+{
+  "streetAddress": "عنوانك الكامل هنا",
+  "district": "العليا",
+  "city": "الرياض",
+  "region": "منطقة الرياض",
+  "postalCode": "12211",
+  "country": "SA",
+  "lat": 24.7136,
+  "lng": 46.6753,
+  "priceLow": 400,
+  "priceHigh": 3000,
+  "currency": "SAR",
+  "foundedYear": 2014,
+  "employeeCount": 50,
+  "crNumber": "",
+  "reviewLink": "https://g.page/your-business/review",
+  "mapsEmbedUrl": "",
+  "openingHours": [
+    { "days": "Sunday,Monday,Tuesday,Wednesday,Thursday", "opens": "07:00", "closes": "22:00" },
+    { "days": "Friday,Saturday", "opens": "08:00", "closes": "22:00" }
+  ],
+  "serviceAreas": [
+    "العليا", "النرجس", "الملقا", "الروضة", "حطين",
+    "الشميسي", "المعذر", "قرطبة", "الحمراء", "الورود",
+    "الصالحية", "الرحمانية", "الرياض العامة"
+  ],
+  "intercityCities": [
+    "جدة", "الدمام", "مكة المكرمة", "المدينة المنورة", "القصيم", "الطائف"
+  ],
+  "aggregateRating": {
+    "ratingValue": "4.9",
+    "reviewCount": "127",
+    "bestRating": "5",
+    "worstRating": "1"
+  }
+}
